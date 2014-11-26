@@ -27,6 +27,51 @@ var API_KEY = undefined, URL_BASE = 'http://mainsms.ru/api/mainsms',
     return params;
   }
 
+  function sendRequest (url_base, options, callback) {
+    var url = url_base + '?' + getUrlParams(options);
+    http
+      .get(url, function (res) {
+        var body = '';
+
+        // http error
+        if (res.statusCode !== 200)
+          callback({
+            code: res.statusCode,
+            message: 'HTTP ERROR: bad response code'
+          });
+
+        // http ok
+        else {
+          res.on('data', function (chunk) { body += chunk; });
+          res.on('end', function () {
+
+            // parse response
+            body = JSON.parse(body);
+
+            // mainsms ok
+            if (body.status === 'success') {
+              delete body.status;
+              callback(null, body);
+            }
+
+            // mainsms error
+            else if (body.status === 'error')
+              callback({
+                code: body.error,
+                message: body.message
+              });
+
+            // mainsms unknown error
+            else callback({
+              code: 0,
+              message: 'unknown error'
+            });
+          });
+        }
+      })
+      .on('error', function (err) { callback(err.message); });
+  }
+
 // message, mainsms.ru/home/mainapi
 
   var message = (function () {
@@ -38,57 +83,40 @@ var API_KEY = undefined, URL_BASE = 'http://mainsms.ru/api/mainsms',
         // allow array of recipients
         if (options.recipients instanceof Array) options.recipients = options.recipients.join(',');
 
-        // request string
-        var url = URL_GROUP + '/send?' + getUrlParams(options);
-
         //
-        http
-          .get(url, function (res) {
-            var body = '';
-
-            // http error
-            if (res.statusCode !== 200)
-              callback({
-                code: res.statusCode,
-                message: 'HTTP ERROR: bad response code'
-              });
-
-            // http ok
-            else {
-              res.on('data', function (chunk) { body += chunk; });
-              res.on('end', function () {
-
-                // parse response
-                body = JSON.parse(body);
-
-                // mainsms ok
-                if (body.status === 'success') {
-                  delete body.status;
-                  callback(null, body);
-                }
-
-                // mainsms error
-                else if (body.status === 'error')
-                  callback({
-                    code: body.error,
-                    message: body.message
-                  });
-
-                // mainsms unknown error
-                else callback({
-                  code: 0,
-                  message: 'unknown error'
-                });
-              });
-            }
-          })
-          .on('error', function (err) { callback(err.message); });
+        sendRequest(URL_GROUP + '/send', options, callback);
       },
 
-      status: null,
-      price: null,
-      balance: null,
-      info: null
+      status: function (options, callback) {
+
+        // allow array of messages_id
+        if (options.messages_id instanceof Array) options.messages_id = options.messages_id.join(',');
+
+        //
+        sendRequest(URL_GROUP + '/status', options, callback);
+      },
+
+      price: function (options, callback) {
+
+        // allow array of recipients
+        if (options.recipients instanceof Array) options.recipients = options.recipients.join(',');
+
+        //
+        sendRequest(URL_GROUP + '/price', options, callback);
+      },
+
+      balance: function (options, callback) {
+        sendRequest(URL_GROUP + '/balance', options, callback);
+      },
+
+      info: function (options, callback) {
+
+        // allow array of phones
+        if (options.phones instanceof Array) options.phones = options.phones.join(',');
+
+        //
+        sendRequest(URL_GROUP + '/info', options, callback);
+      }
     };
   })();
 
