@@ -64,12 +64,19 @@ var API_KEY = undefined, URL_BASE = 'http://mainsms.ru/api/mainsms',
             // mainsms unknown error
             else callback({
               code: 0,
-              message: 'unknown error'
+              message: 'MAINSMS ERROR: unknown error'
             });
           });
         }
       })
-      .on('error', function (err) { callback(err.message); });
+
+      // request error
+      .on('error', function (err) {
+        callback({
+          code: -1,
+          message: 'REQUEST ERROR: ' + err.message
+        });
+      });
   }
 
 // message, mainsms.ru/home/mainapi
