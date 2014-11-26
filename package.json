@@ -1,6 +1,6 @@
 {
   "name": "mainsmsru",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "HTTP API for SMS-sending service: mainsms.ru",
   "keywords": "sms, send, mobile, gate",
   "main": "index.js",

@@ -30,53 +30,38 @@ You must provide your [API key](http://mainsms.ru/office/api_account) before usi
 ### message
 
 object: `mainsms.message`  
+methods: `send`, `status`, `price`, `balance`, `info`, `status`  
 docs: http://mainsms.ru/home/mainapi
 
-##### send
-  + `recipients` parameter can be not only the string of comma delimited numbers (e.g. `'9110000000,9120000000'`), but also a number itself (e.g. `'9110000000'`) or an array of them (e.g. `['9110000000','9120000000']`).
-
-##### status
-  + not implemented
-
-##### price
-  + not implemented
-
-##### balance
-  + not implemented
-
-##### info
-  + not implemented
-
-##### status
-  + not implemented
+  + all parameters in docs, which should be the string of comma delimited numbers (e.g. `'9110000000,9120000000'`), can also be an array of them (e.g. `['9110000000','9120000000']`).
 
 
 ### sending
 
 object: `mainsms.sending`  
 docs: http://mainsms.ru/home/sendingapi  
-not implemented
+methods: not implemented
 
 ### batch
 
 object: `mainsms.batch`  
 docs: http://mainsms.ru/home/batch  
-not implemented
+methods: not implemented
 
 ### group
 
 object: `mainsms.group`  
 docs: http://mainsms.ru/home/group_api  
-not implemented
+methods: not implemented
 
 ### contact
 
 object: `mainsms.contact`  
 docs: http://mainsms.ru/home/contact_api  
-not implemented
+methods: not implemented
 
 ### sender
 
 object: `mainsms.sender`  
 docs: http://mainsms.ru/home/sender_api  
-not implemented
+methods: not implemented
