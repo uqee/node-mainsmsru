@@ -1,0 +1,24 @@
+{
+  "name": "mainsmsru",
+  "version": "0.0.1",
+  "description": "HTTP API for SMS-sending service: mainsms.ru",
+  "keywords": "sms, send, mobile, gate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uqee/node-mainsmsru.git"
+  },
+  "author": {
+    "name": "Denis Zhbankov",
+    "email": "denis.zhbankov@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uqee/node-mainsmsru/issues"
+  },
+  "homepage": "https://github.com/uqee/node-mainsmsru",
+  "dependencies": {}
+}
