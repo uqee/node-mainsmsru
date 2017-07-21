@@ -15,7 +15,11 @@ var API_KEY = undefined, URL_BASE = 'http://mainsms.ru/api/mainsms',
       value = options[key];
       if (value || value === '' || value === 0) {
         signature += value + ';';
-        params += key + '=' + value + '&';
+        if (key == 'message') {
+          params += key + '=' + encodeURI(value) + '&';
+        } else {
+          params += key + '=' + value + '&';
+        }
       }
     }
 
@@ -84,7 +88,7 @@ var API_KEY = undefined, URL_BASE = 'http://mainsms.ru/api/mainsms',
   var message = (function () {
     var URL_GROUP = URL_BASE + '/message';
     return {
-      
+
       send: function (options, callback) {
 
         // allow array of recipients
