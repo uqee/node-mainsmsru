@@ -16,7 +16,7 @@ var API_KEY = undefined, URL_BASE = 'http://mainsms.ru/api/mainsms',
       if (value || value === '' || value === 0) {
         signature += value + ';';
         if (key == 'message') {
-          params += key + '=' + encodeURI(value) + '&';
+          params += key + '=' + encodeURIComponent(value) + '&';
         } else {
           params += key + '=' + value + '&';
         }
